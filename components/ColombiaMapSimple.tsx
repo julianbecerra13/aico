@@ -83,7 +83,7 @@ export default function ColombiaMapSimple({ onDepartmentClick }: ColombiaMapProp
       try {
         // Cargar los centroides de los departamentos del GeoJSON
         const departmentCentroids = await loadDepartmentMapping();
-        console.log("Loaded departments:", departmentCentroids.map(d => d.name));
+        console.log("Loaded departments:", departmentCentroids.map((d: any) => d.name));
 
         const svgDoc = objectRef.current?.contentDocument;
         if (!svgDoc) {
@@ -133,7 +133,7 @@ export default function ColombiaMapSimple({ onDepartmentClick }: ColombiaMapProp
         const pathToDepartment = new Map<SVGPathElement, string>();
 
         // Convertir las coordenadas geográficas a SVG para cada departamento
-        const departmentsWithSvgCoords = departmentCentroids.map((dept) => ({
+        const departmentsWithSvgCoords = departmentCentroids.map((dept: any) => ({
           ...dept,
           svgPolygon: dept.coordinates.map(([lon, lat]: number[]) => {
             const coords = geoToSvg(lon, lat);
@@ -158,7 +158,7 @@ export default function ColombiaMapSimple({ onDepartmentClick }: ColombiaMapProp
             let closestDept = departmentsWithSvgCoords[0];
             let minDistance = Infinity;
 
-            departmentsWithSvgCoords.forEach((dept) => {
+            departmentsWithSvgCoords.forEach((dept: any) => {
               const svgCoords = geoToSvg(dept.centroid.lon, dept.centroid.lat);
               const distance = Math.sqrt(
                 Math.pow(pathCentroid.x - svgCoords.x, 2) +
